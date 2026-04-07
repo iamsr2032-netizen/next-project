@@ -2,13 +2,13 @@
 
 import * as React from "react"
 import Link from "next/link"
-import { Mail, Phone, MapPin, Send, Clock, ArrowRight, ArrowUpRight, CheckCircle2 } from "lucide-react"
+import { Mail, Phone, MapPin, Clock, ArrowRight, ArrowUpRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import { Section } from "@/components/section"
 import { AnimatedHeading, Reveal } from "@/components/animated-text"
-import { MagneticButton } from "@/components/magnetic-button"
+import { ContactForm } from "@/components/contact-form"
 
 const contactInfo = [
   { icon: Mail, title: "Email", value: "hello@folio.design", href: "mailto:hello@folio.design" },
@@ -17,32 +17,7 @@ const contactInfo = [
   { icon: Clock, title: "Hours", value: "Mon - Fri: 9AM - 6PM", href: "#" },
 ]
 
-const services = [
-  "Brand Design",
-  "Web Development",
-  "UI/UX Design",
-  "Digital Strategy",
-  "Mobile Apps",
-  "E-commerce",
-]
-
 export default function ContactPage() {
-  const [submitted, setSubmitted] = React.useState(false)
-  const [selectedServices, setSelectedServices] = React.useState<string[]>([])
-
-  const toggleService = (service: string) => {
-    setSelectedServices(prev => 
-      prev.includes(service) 
-        ? prev.filter(s => s !== service)
-        : [...prev, service]
-    )
-  }
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    setSubmitted(true)
-  }
-
   return (
     <div className="min-h-screen bg-background">
       <Navbar variant="transparent" />
@@ -77,142 +52,7 @@ export default function ContactPage() {
           <div className="lg:col-span-3">
             <Reveal>
               <div className="p-8 md:p-10 rounded-3xl border border-border bg-card">
-                {submitted ? (
-                  <div className="text-center py-16">
-                    <div className="h-20 w-20 mx-auto flex items-center justify-center rounded-full bg-accent/10 text-accent mb-6">
-                      <CheckCircle2 className="h-10 w-10" />
-                    </div>
-                    <h3 className="text-2xl font-semibold mb-3" style={{ fontFamily: 'var(--font-display)' }}>
-                      Message sent successfully!
-                    </h3>
-                    <p className="text-muted-foreground mb-8 max-w-sm mx-auto">
-                      Thank you for reaching out. We&apos;ll review your message and get back to you within 24 hours.
-                    </p>
-                    <Button variant="outline" onClick={() => setSubmitted(false)}>
-                      Send another message
-                    </Button>
-                  </div>
-                ) : (
-                  <form onSubmit={handleSubmit} className="space-y-8">
-                    {/* Name Fields */}
-                    <div className="grid sm:grid-cols-2 gap-6">
-                      <div className="space-y-2">
-                        <label htmlFor="firstName" className="block text-sm font-medium">
-                          First Name <span className="text-accent">*</span>
-                        </label>
-                        <input
-                          type="text"
-                          id="firstName"
-                          required
-                          className="flex h-12 w-full rounded-xl border border-input bg-background px-4 text-sm transition-colors focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20"
-                          placeholder="John"
-                        />
-                      </div>
-                      <div className="space-y-2">
-                        <label htmlFor="lastName" className="block text-sm font-medium">
-                          Last Name <span className="text-accent">*</span>
-                        </label>
-                        <input
-                          type="text"
-                          id="lastName"
-                          required
-                          className="flex h-12 w-full rounded-xl border border-input bg-background px-4 text-sm transition-colors focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20"
-                          placeholder="Doe"
-                        />
-                      </div>
-                    </div>
-
-                    {/* Email & Company */}
-                    <div className="grid sm:grid-cols-2 gap-6">
-                      <div className="space-y-2">
-                        <label htmlFor="email" className="block text-sm font-medium">
-                          Email <span className="text-accent">*</span>
-                        </label>
-                        <input
-                          type="email"
-                          id="email"
-                          required
-                          className="flex h-12 w-full rounded-xl border border-input bg-background px-4 text-sm transition-colors focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20"
-                          placeholder="john@example.com"
-                        />
-                      </div>
-                      <div className="space-y-2">
-                        <label htmlFor="company" className="block text-sm font-medium">
-                          Company
-                        </label>
-                        <input
-                          type="text"
-                          id="company"
-                          className="flex h-12 w-full rounded-xl border border-input bg-background px-4 text-sm transition-colors focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20"
-                          placeholder="Your company"
-                        />
-                      </div>
-                    </div>
-
-                    {/* Services */}
-                    <div className="space-y-3">
-                      <label className="block text-sm font-medium">
-                        Services Interested In
-                      </label>
-                      <div className="flex flex-wrap gap-2">
-                        {services.map((service) => (
-                          <button
-                            key={service}
-                            type="button"
-                            onClick={() => toggleService(service)}
-                            className={`px-4 py-2 text-sm rounded-full border transition-all duration-300 ${
-                              selectedServices.includes(service)
-                                ? "bg-foreground text-background border-foreground"
-                                : "border-border hover:border-foreground/50"
-                            }`}
-                          >
-                            {service}
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-
-                    {/* Budget */}
-                    <div className="space-y-2">
-                      <label htmlFor="budget" className="block text-sm font-medium">
-                        Project Budget
-                      </label>
-                      <select
-                        id="budget"
-                        className="flex h-12 w-full rounded-xl border border-input bg-background px-4 text-sm transition-colors focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20"
-                      >
-                        <option value="">Select a budget range</option>
-                        <option value="5k-10k">$5,000 - $10,000</option>
-                        <option value="10k-25k">$10,000 - $25,000</option>
-                        <option value="25k-50k">$25,000 - $50,000</option>
-                        <option value="50k+">$50,000+</option>
-                      </select>
-                    </div>
-
-                    {/* Message */}
-                    <div className="space-y-2">
-                      <label htmlFor="message" className="block text-sm font-medium">
-                        Message <span className="text-accent">*</span>
-                      </label>
-                      <textarea
-                        id="message"
-                        rows={5}
-                        required
-                        className="flex w-full rounded-xl border border-input bg-background px-4 py-3 text-sm transition-colors focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20 resize-none"
-                        placeholder="Tell us about your project, goals, and timeline..."
-                      />
-                    </div>
-
-                    {/* Submit */}
-                    <button
-                      type="submit"
-                      className="group w-full h-14 flex items-center justify-center gap-3 bg-foreground text-background rounded-xl font-medium transition-all duration-300 hover:bg-foreground/90"
-                    >
-                      Send Message
-                      <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                    </button>
-                  </form>
-                )}
+                <ContactForm className="" />
               </div>
             </Reveal>
           </div>
