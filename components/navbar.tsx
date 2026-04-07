@@ -55,7 +55,7 @@ export function Navbar({ variant = "default" }: NavbarProps) {
         className={cn(
           "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
           scrolled || variant === "default"
-            ? "glass py-3"
+            ? "glass-card py-2.5 shadow-soft"
             : "bg-transparent py-5",
           hidden && !mobileMenuOpen && "-translate-y-full"
         )}
@@ -101,10 +101,10 @@ export function Navbar({ variant = "default" }: NavbarProps) {
             <ThemeToggle />
             <Link
               href="/contact"
-              className="group relative inline-flex items-center gap-2 px-6 py-2.5 text-sm font-medium text-background bg-foreground rounded-full overflow-hidden transition-all duration-300 hover:shadow-lg"
+              className="group relative inline-flex items-center gap-2 px-6 py-2.5 text-sm font-medium text-accent-foreground bg-accent rounded-full overflow-hidden transition-all duration-300 hover:shadow-glow hover:scale-105"
             >
               <span className="relative z-10">Get in Touch</span>
-              <span className="absolute inset-0 bg-accent translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
+              <span className="absolute inset-0 bg-foreground/10 -translate-x-full group-hover:translate-x-0 transition-transform duration-300" />
             </Link>
           </div>
 
@@ -145,7 +145,7 @@ export function Navbar({ variant = "default" }: NavbarProps) {
       <div
         className={cn(
           "fixed inset-0 z-40 lg:hidden transition-all duration-500",
-          mobileMenuOpen ? "visible" : "invisible"
+          mobileMenuOpen ? "visible backdrop-blur-sm bg-background/80" : "invisible"
         )}
       >
         {/* Backdrop */}

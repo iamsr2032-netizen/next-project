@@ -82,12 +82,12 @@ export function ContactForm({
 
   if (isSubmitted) {
     return (
-      <div className={cn("text-center py-16", className)}>
-        <div className="h-20 w-20 mx-auto flex items-center justify-center rounded-full bg-green-500/10 text-green-600 mb-6">
-          <CheckCircle2 className="h-10 w-10" />
+      <div className={cn("text-center py-20 animate-fade-up", className)}>
+        <div className="h-24 w-24 mx-auto flex items-center justify-center rounded-full bg-accent/10 text-accent mb-8 animate-scale-in shadow-glow">
+          <CheckCircle2 className="h-12 w-12" />
         </div>
-        <h3 className="text-2xl font-semibold mb-3">Message sent successfully!</h3>
-        <p className="text-muted-foreground mb-8 max-w-sm mx-auto">
+        <h3 className="text-3xl font-bold mb-4">Message sent successfully!</h3>
+        <p className="text-muted-foreground mb-10 max-w-sm mx-auto leading-relaxed">
           Thank you for reaching out. We&apos;ll review your message and get back to you within 24 hours.
         </p>
         <Button variant="outline" onClick={() => setIsSubmitted(false)}>
@@ -110,8 +110,8 @@ export function ContactForm({
             id="firstName"
             placeholder="John"
             className={cn(
-              "w-full px-4 py-3 rounded-lg border bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-accent transition-colors",
-              errors.firstName ? "border-red-500" : "border-border"
+              "w-full px-4 py-3 rounded-xl border bg-card/50 backdrop-blur-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent transition-all duration-300 hover:border-border/80",
+              errors.firstName ? "border-destructive bg-destructive/5" : "border-border/50"
             )}
           />
           {errors.firstName && (
@@ -127,8 +127,8 @@ export function ContactForm({
             id="lastName"
             placeholder="Doe"
             className={cn(
-              "w-full px-4 py-3 rounded-lg border bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-accent transition-colors",
-              errors.lastName ? "border-red-500" : "border-border"
+              "w-full px-4 py-3 rounded-xl border bg-card/50 backdrop-blur-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent transition-all duration-300 hover:border-border/80",
+              errors.lastName ? "border-destructive bg-destructive/5" : "border-border/50"
             )}
           />
           {errors.lastName && (
@@ -149,8 +149,8 @@ export function ContactForm({
             type="email"
             placeholder="john@example.com"
             className={cn(
-              "w-full px-4 py-3 rounded-lg border bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-accent transition-colors",
-              errors.email ? "border-red-500" : "border-border"
+              "w-full px-4 py-3 rounded-xl border bg-card/50 backdrop-blur-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent transition-all duration-300 hover:border-border/80",
+              errors.email ? "border-destructive bg-destructive/5" : "border-border/50"
             )}
           />
           {errors.email && (
@@ -166,7 +166,7 @@ export function ContactForm({
             id="phone"
             type="tel"
             placeholder="+1 (555) 123-4567"
-            className="w-full px-4 py-3 rounded-lg border border-border bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-accent transition-colors"
+            className="w-full px-4 py-3 rounded-xl border border-border/50 bg-card/50 backdrop-blur-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent transition-all duration-300 hover:border-border/80"
           />
         </div>
       </div>
@@ -181,7 +181,7 @@ export function ContactForm({
             {...register("company")}
             id="company"
             placeholder="Your Company"
-            className="w-full px-4 py-3 rounded-lg border border-border bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-accent transition-colors"
+            className="w-full px-4 py-3 rounded-xl border border-border/50 bg-card/50 backdrop-blur-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent transition-all duration-300 hover:border-border/80"
           />
         </div>
         <div className="space-y-2">
@@ -191,7 +191,7 @@ export function ContactForm({
           <select
             {...register("budget")}
             id="budget"
-            className="w-full px-4 py-3 rounded-lg border border-border bg-background text-foreground focus:outline-none focus:ring-1 focus:ring-accent transition-colors"
+            className="w-full px-4 py-3 rounded-xl border border-border/50 bg-card/50 backdrop-blur-sm text-foreground focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent transition-all duration-300 hover:border-border/80"
           >
             <option value="">Select a budget range</option>
             {budgetOptions.map((option) => (
@@ -219,10 +219,10 @@ export function ContactForm({
                 setValue("services", updated)
               }}
               className={cn(
-                "px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 border",
+                "px-4 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300 border",
                 selectedServices?.includes(service)
-                  ? "bg-accent text-background border-accent"
-                  : "border-border hover:border-foreground/20"
+                  ? "bg-accent text-accent-foreground border-accent shadow-glow hover:scale-105"
+                  : "border-border/50 bg-card/50 hover:border-border hover:bg-card"
               )}
             >
               {service}
@@ -242,8 +242,8 @@ export function ContactForm({
           placeholder="Tell us about your project..."
           rows={6}
           className={cn(
-            "w-full px-4 py-3 rounded-lg border bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-accent transition-colors resize-none",
-            errors.message ? "border-red-500" : "border-border"
+            "w-full px-4 py-3 rounded-xl border bg-card/50 backdrop-blur-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent transition-all duration-300 resize-none hover:border-border/80",
+            errors.message ? "border-destructive bg-destructive/5" : "border-border/50"
           )}
         />
         {errors.message && (
@@ -253,9 +253,9 @@ export function ContactForm({
 
       {/* Error Message */}
       {error && (
-        <div className="flex items-center gap-3 p-4 rounded-lg bg-red-500/10 border border-red-500/20 text-red-600">
+        <div className="flex items-center gap-3 p-4 rounded-xl bg-destructive/10 border border-destructive/20 text-destructive animate-fade-up">
           <AlertCircle className="h-5 w-5 flex-shrink-0" />
-          <p className="text-sm">{error}</p>
+          <p className="text-sm font-medium">{error}</p>
         </div>
       )}
 
@@ -263,7 +263,8 @@ export function ContactForm({
       <Button
         type="submit"
         disabled={isSubmitting}
-        className="w-full"
+        size="lg"
+        className="w-full mt-4"
       >
         {isSubmitting ? (
           <>

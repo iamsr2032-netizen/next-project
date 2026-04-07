@@ -22,11 +22,16 @@ const navigation = {
 
 export function Footer() {
   return (
-    <footer className="border-t border-border bg-background">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+    <footer className="relative border-t border-border/50 bg-gradient-to-b from-background via-card/20 to-background overflow-hidden">
+      {/* Decorative elements */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute top-0 right-1/4 w-96 h-96 bg-accent/5 rounded-full blur-3xl" />
+      </div>
+      
+      <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
         {/* Main Footer Content */}
         <div className="py-16 lg:py-24">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-24">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-32">
             {/* Left: CTA */}
             <div>
               <Reveal>
@@ -36,21 +41,21 @@ export function Footer() {
               </Reveal>
               <Reveal delay={0.1}>
                 <h2 
-                  className="mt-4 text-4xl md:text-5xl lg:text-6xl font-medium leading-tight"
+                  className="mt-4 text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-balance"
                   style={{ fontFamily: 'var(--font-display)' }}
                 >
                   Let&apos;s create something{" "}
-                  <span className="italic text-muted-foreground">amazing</span>{" "}
+                  <span className="italic bg-gradient-to-r from-accent to-accent/50 bg-clip-text text-transparent">amazing</span>{" "}
                   together
                 </h2>
               </Reveal>
               <Reveal delay={0.2}>
                 <Link
                   href="mailto:hello@folio.design"
-                  className="group inline-flex items-center gap-3 mt-8 text-lg font-medium text-foreground hover:text-accent transition-colors"
+                  className="group inline-flex items-center gap-3 mt-8 text-lg font-semibold text-foreground hover:text-accent transition-all duration-300"
                 >
-                  <span className="flex h-10 w-10 items-center justify-center rounded-full border border-border group-hover:border-accent group-hover:bg-accent group-hover:text-background transition-all duration-300">
-                    <Mail className="h-4 w-4" />
+                  <span className="flex h-12 w-12 items-center justify-center rounded-full border border-border/50 bg-accent/10 group-hover:border-accent group-hover:bg-accent group-hover:text-accent-foreground group-hover:shadow-glow transition-all duration-300">
+                    <Mail className="h-5 w-5" />
                   </span>
                   hello@folio.design
                 </Link>
@@ -69,10 +74,13 @@ export function Footer() {
                     <Link
                       key={item.name}
                       href={item.href}
-                      className="group flex items-center gap-2 text-foreground hover:text-accent transition-colors"
+                      className="group relative flex items-center gap-2 text-foreground hover:text-accent transition-colors duration-300"
                     >
-                      {item.name}
-                      <ArrowUpRight className="h-3 w-3 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
+                      <span className="relative">
+                        {item.name}
+                        <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-accent group-hover:w-full transition-all duration-300" />
+                      </span>
+                      <ArrowUpRight className="h-3 w-3 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-300" />
                     </Link>
                   ))}
                 </nav>
@@ -88,9 +96,11 @@ export function Footer() {
                     <Link
                       key={item.name}
                       href={item.href}
-                      className="group flex items-center gap-3 text-foreground hover:text-accent transition-colors"
+                      className="group flex items-center gap-3 text-foreground hover:text-accent transition-all duration-300"
                     >
-                      <item.icon className="h-4 w-4" />
+                      <span className="flex h-8 w-8 items-center justify-center rounded-full border border-border/50 group-hover:border-accent group-hover:bg-accent/10 transition-all duration-300">
+                        <item.icon className="h-4 w-4" />
+                      </span>
                       {item.name}
                     </Link>
                   ))}

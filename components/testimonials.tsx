@@ -45,8 +45,8 @@ export function TestimonialsSection() {
   const activeTestimonial = testimonials[activeIndex]
 
   return (
-    <Section className="bg-muted/30">
-      <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+    <Section className="bg-gradient-to-b from-background via-card/30 to-background">
+      <div className="grid lg:grid-cols-2 gap-16 lg:gap-32 items-center">
         {/* Left: Content */}
         <div>
           <Reveal>
@@ -59,13 +59,14 @@ export function TestimonialsSection() {
           </AnimatedHeading>
 
           {/* Quote */}
-          <div className="mt-12 relative">
-            <Quote className="absolute -top-2 -left-2 h-12 w-12 text-accent/20" />
+          <div className="mt-12 relative group">
+            <div className="absolute -inset-8 bg-accent/5 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            <Quote className="absolute -top-4 -left-4 h-14 w-14 text-accent/15 transition-all duration-500" />
             
             <blockquote
               key={activeIndex}
               className={cn(
-                "relative pl-8 text-xl md:text-2xl leading-relaxed text-foreground/90",
+                "relative pl-8 text-xl md:text-2xl leading-relaxed text-foreground font-medium",
                 "animate-fade-in"
               )}
               style={{ fontFamily: 'var(--font-display)' }}
@@ -74,22 +75,24 @@ export function TestimonialsSection() {
             </blockquote>
 
             {/* Author */}
-            <div className="mt-8 pl-8 flex items-center gap-4">
-              <div className="relative h-14 w-14 rounded-full overflow-hidden ring-2 ring-background">
-                <Image
-                  src={activeTestimonial.image}
-                  alt={activeTestimonial.author}
-                  fill
-                  className="object-cover"
-                />
+            <div className="mt-8 pl-8 flex items-center justify-between">
+              <div className="flex items-center gap-4">
+                <div className="relative h-16 w-16 rounded-full overflow-hidden ring-3 ring-accent/30 shadow-soft">
+                  <Image
+                    src={activeTestimonial.image}
+                    alt={activeTestimonial.author}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <div>
+                  <p className="font-semibold text-lg">{activeTestimonial.author}</p>
+                  <p className="text-sm text-muted-foreground">{activeTestimonial.role}</p>
+                </div>
               </div>
-              <div>
-                <p className="font-semibold">{activeTestimonial.author}</p>
-                <p className="text-sm text-muted-foreground">{activeTestimonial.role}</p>
-              </div>
-              <div className="ml-auto flex gap-0.5">
+              <div className="flex gap-1">
                 {Array.from({ length: activeTestimonial.rating }).map((_, i) => (
-                  <Star key={i} className="h-4 w-4 fill-accent text-accent" />
+                  <Star key={i} className="h-4 w-4 fill-accent text-accent transition-transform hover:scale-110" />
                 ))}
               </div>
             </div>
@@ -99,18 +102,18 @@ export function TestimonialsSection() {
           <div className="mt-12 pl-8 flex items-center gap-4">
             <button
               onClick={goToPrev}
-              className="flex h-12 w-12 items-center justify-center rounded-full border-2 border-border text-foreground transition-all duration-300 hover:border-foreground hover:bg-foreground hover:text-background"
+              className="group flex h-12 w-12 items-center justify-center rounded-full border-2 border-border text-foreground transition-all duration-300 hover:border-accent hover:bg-accent/10 hover:shadow-soft"
             >
-              <ChevronLeft className="h-5 w-5" />
+              <ChevronLeft className="h-5 w-5 transition-transform group-hover:-translate-x-1" />
             </button>
             <button
               onClick={goToNext}
-              className="flex h-12 w-12 items-center justify-center rounded-full border-2 border-border text-foreground transition-all duration-300 hover:border-foreground hover:bg-foreground hover:text-background"
+              className="group flex h-12 w-12 items-center justify-center rounded-full border-2 border-border text-foreground transition-all duration-300 hover:border-accent hover:bg-accent/10 hover:shadow-soft"
             >
-              <ChevronRight className="h-5 w-5" />
+              <ChevronRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
             </button>
-            <span className="ml-4 text-sm text-muted-foreground">
-              {String(activeIndex + 1).padStart(2, "0")} / {String(testimonials.length).padStart(2, "0")}
+            <span className="ml-auto text-sm font-medium text-muted-foreground">
+              <span className="text-accent">{String(activeIndex + 1).padStart(2, "0")}</span> / {String(testimonials.length).padStart(2, "0")}
             </span>
           </div>
         </div>
@@ -118,20 +121,23 @@ export function TestimonialsSection() {
         {/* Right: Large Image or Decorative Element */}
         <Reveal direction="right" delay={0.2}>
           <div className="relative aspect-square max-w-lg mx-auto lg:ml-auto">
-            {/* Decorative circles */}
+            {/* Decorative circles with gradient */}
             <div className="absolute inset-0 flex items-center justify-center">
-              <div className="absolute w-full h-full rounded-full border border-border" />
-              <div className="absolute w-[85%] h-[85%] rounded-full border border-border" />
-              <div className="absolute w-[70%] h-[70%] rounded-full border border-border" />
+              <div className="absolute w-full h-full rounded-full border border-border/50 shadow-soft" />
+              <div className="absolute w-[85%] h-[85%] rounded-full border border-border/30" />
+              <div className="absolute w-[70%] h-[70%] rounded-full border border-accent/20 bg-gradient-to-b from-accent/5 to-transparent" />
             </div>
+            
+            {/* Animated gradient background */}
+            <div className="absolute inset-0 rounded-full bg-gradient-to-br from-accent/10 via-transparent to-accent/5 animate-pulse-soft" />
             
             {/* Center content */}
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="text-center">
-                <span className="text-8xl md:text-9xl font-medium text-foreground/10" style={{ fontFamily: 'var(--font-display)' }}>
-                  {testimonials.length}
+                <span className="text-7xl md:text-8xl font-bold text-foreground/8" style={{ fontFamily: 'var(--font-display)' }}>
+                  {testimonials.length}0
                 </span>
-                <p className="text-sm font-medium text-muted-foreground uppercase tracking-widest mt-2">
+                <p className="text-xs font-semibold text-muted-foreground uppercase tracking-widest mt-4">
                   Happy Clients
                 </p>
               </div>
@@ -142,11 +148,13 @@ export function TestimonialsSection() {
               <div
                 key={testimonial.author}
                 className={cn(
-                  "absolute h-16 w-16 rounded-full overflow-hidden ring-4 ring-background transition-all duration-500",
+                  "absolute h-16 w-16 rounded-full overflow-hidden ring-4 transition-all duration-500 shadow-elevated",
                   index === 0 && "top-0 left-1/2 -translate-x-1/2",
                   index === 1 && "bottom-8 left-8",
                   index === 2 && "bottom-8 right-8",
-                  activeIndex === index ? "scale-125 ring-accent" : "opacity-50"
+                  activeIndex === index 
+                    ? "scale-125 ring-accent shadow-glow" 
+                    : "ring-background/50 opacity-60 hover:opacity-100"
                 )}
               >
                 <Image

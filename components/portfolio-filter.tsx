@@ -43,19 +43,19 @@ export function PortfolioFilter({ showAll = false }: PortfolioFilterProps) {
     <div className="space-y-12">
       {/* Search Bar */}
       <Reveal>
-        <div className="max-w-md mx-auto relative">
-          <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground pointer-events-none" />
+        <div className="max-w-md mx-auto relative group">
+          <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground pointer-events-none transition-colors group-focus-within:text-accent" />
           <input
             type="text"
             placeholder="Search projects..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-12 pr-12 py-3 rounded-full border border-border bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-colors"
+            className="w-full pl-12 pr-12 py-3 rounded-full border border-border/50 bg-card/50 backdrop-blur-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/30 transition-all duration-300 hover:border-border"
           />
           {searchQuery && (
             <button
               onClick={() => setSearchQuery("")}
-              className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+              className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-accent transition-colors duration-300"
             >
               <X className="h-5 w-5" />
             </button>
@@ -65,18 +65,21 @@ export function PortfolioFilter({ showAll = false }: PortfolioFilterProps) {
 
       {/* Filter Buttons */}
       <Reveal>
-        <div className="flex flex-wrap justify-center gap-2">
+        <div className="flex flex-wrap justify-center gap-3">
           {categories.map((category) => (
             <button
               key={category}
               onClick={() => setActiveCategory(category)}
               className={cn(
-                "px-5 py-2.5 text-sm font-medium rounded-full transition-all duration-300",
+                "relative px-6 py-2.5 text-sm font-medium rounded-full transition-all duration-300 overflow-hidden",
                 activeCategory === category
-                  ? "bg-foreground text-background"
-                  : "bg-muted text-muted-foreground hover:bg-muted/80 hover:text-foreground"
+                  ? "bg-accent text-accent-foreground shadow-glow hover:scale-105"
+                  : "bg-card/50 border border-border/50 text-foreground hover:bg-card hover:border-border/80 hover:shadow-soft"
               )}
             >
+              {activeCategory === category && (
+                <span className="absolute inset-0 -z-10 bg-accent/20 blur-lg" />
+              )}
               {category}
             </button>
           ))}
@@ -95,7 +98,7 @@ export function PortfolioFilter({ showAll = false }: PortfolioFilterProps) {
                 onMouseLeave={() => setHoveredProject(null)}
               >
                 {/* Image Container */}
-                <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-muted">
+                <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-muted border border-border/50 glass-card hover-lift">
                   <Image
                     src={project.image}
                     alt={project.title}
@@ -108,13 +111,13 @@ export function PortfolioFilter({ showAll = false }: PortfolioFilterProps) {
                   
                   {/* Overlay */}
                   <div className={cn(
-                    "absolute inset-0 bg-foreground/0 transition-colors duration-500",
-                    hoveredProject === project.id && "bg-foreground/20"
+                    "absolute inset-0 bg-foreground/0 backdrop-blur-0 transition-all duration-500",
+                    hoveredProject === project.id && "bg-foreground/20 backdrop-blur-sm"
                   )} />
                   
                   {/* View Button */}
                   <div className={cn(
-                    "absolute top-6 right-6 flex h-14 w-14 items-center justify-center rounded-full bg-background text-foreground transition-all duration-500",
+                    "absolute top-6 right-6 flex h-14 w-14 items-center justify-center rounded-full bg-accent text-accent-foreground transition-all duration-500 shadow-glow",
                     hoveredProject === project.id 
                       ? "opacity-100 scale-100 rotate-0" 
                       : "opacity-0 scale-75 -rotate-45"
@@ -124,22 +127,22 @@ export function PortfolioFilter({ showAll = false }: PortfolioFilterProps) {
                 </div>
 
                 {/* Project Info */}
-                <div className="mt-6">
-                  <h3 className="text-xl font-semibold transition-colors group-hover:text-accent">
+                <div className="mt-6 space-y-3">
+                  <h3 className="text-xl font-semibold leading-tight transition-colors duration-300 group-hover:text-accent">
                     {project.title}
                   </h3>
-                  <p className="mt-2 text-sm text-muted-foreground line-clamp-2">
+                  <p className="mt-2 text-sm text-muted-foreground line-clamp-2 leading-relaxed">
                     {project.description}
                   </p>
-                  <div className="mt-4 flex items-center justify-between">
+                  <div className="flex items-center justify-between pt-2">
                     <div className="flex gap-2 flex-wrap">
                       {project.tags.slice(0, 2).map((tag) => (
-                        <span key={tag} className="text-xs px-2 py-1 rounded-full bg-muted text-muted-foreground">
+                        <span key={tag} className="text-xs px-2.5 py-1 rounded-full bg-accent/10 text-accent border border-accent/20 transition-colors duration-300">
                           {tag}
                         </span>
                       ))}
                     </div>
-                    <span className="text-sm text-muted-foreground">{project.year}</span>
+                    <span className="text-sm font-medium text-muted-foreground">{project.year}</span>
                   </div>
                 </div>
               </Link>

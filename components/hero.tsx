@@ -40,8 +40,8 @@ export function Hero({
       {/* Background Elements */}
       {backgroundGradient && (
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-1/4 -left-32 w-96 h-96 bg-accent/5 rounded-full blur-3xl" />
-          <div className="absolute bottom-1/4 -right-32 w-96 h-96 bg-accent/5 rounded-full blur-3xl" />
+          <div className="absolute top-1/4 -left-32 w-96 h-96 bg-accent/8 rounded-full blur-3xl animate-pulse-soft" />
+          <div className="absolute bottom-1/4 -right-32 w-96 h-96 bg-accent/8 rounded-full blur-3xl animate-pulse-soft" style={{ animationDelay: '1s' }} />
         </div>
       )}
 
@@ -66,7 +66,7 @@ export function Hero({
           <div>
             <AnimatedHeading
               as="h1"
-              className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-medium leading-[0.95] tracking-tight"
+              className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold leading-[0.95] tracking-tight text-balance"
               delay={0.1}
             >
               {title}
